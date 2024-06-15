@@ -70,7 +70,7 @@ Allows a user to purchase a ticket for an event.
 
 ```move
 
-public fun buy_ticket(ticket: &mut Ticket, event: &mut Event, ctx: &mut TxContext, clock: &Clock, buyer_coin_payment: Coin<SUI>)
+public fun buy_ticket(ticket: &mut Ticket, event: &mut Event, ctx: &mut TxContext, clock: &Clock, coin: Coin<SUI>)
 ```
 ### Get Invoice Details
 

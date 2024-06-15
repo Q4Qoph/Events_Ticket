@@ -78,15 +78,7 @@ module Events_Ticket::Events_Ticket {
         };
         ticket
     }
-
-    // // Get Event details
-    // public fun get_event(event: &Event) : (&String, &String, &u64, &u64) {
-    //     let Event {id, name, desc, wallet_balance, start_time, end_time} = event;
-    //     let _id = id;
-    //     let _wallet_balance = wallet_balance;
-    //     (name, desc, start_time, end_time)
-    // }
-
+    
     // Retrieve all funds from event wallet after event is over
     public fun withdraw(cap: &EventCap, event: &mut Event, ctx: &mut TxContext, clock: &Clock, reciever: address) {
         assert!(object::id(event) == cap.to, Error_not_owner);

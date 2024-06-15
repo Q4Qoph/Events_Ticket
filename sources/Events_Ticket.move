@@ -103,18 +103,13 @@ module Events_Ticket::Events_Ticket {
     }
 
     // Refund a ticket
-    public fun refund_ticket(ticket: &mut Ticket, event: &mut Event, c: &Clock, ctx: &mut TxContext) : Coin<SUI> {
+    public fun refund_ticket(self: &mut Event, c: &Clock, ctx: &mut TxContext) : Coin<SUI> {
         // check if event is over
-        let current_time = clock::timestamp_ms(c);
-        assert!(current_time < event.end_time, ErrorEventOver);
-        // check if ticket is available
-        assert!(ticket.tickets_sold > 0, ErrorTicketNotAvailable);
+        assert!(clock::timestamp_ms(c) < self.end_time, ErrorEventOver);
         // decrement tickets sold
-        ticket.tickets_sold = ticket.tickets_sold - 1;
+        self.tickets_sold = self.tickets_sold - 1;
         // refund buyer
-        let ticket_price = ticket.ticket_price;
-        let refund_coin = coin::take(&mut event.wallet_balance, ticket_price, ctx);
+        let refund_coin = coin::take(&mut self.wallet_balance, self.ticket_price, ctx);
         refund_coin
-    
     }   
 }

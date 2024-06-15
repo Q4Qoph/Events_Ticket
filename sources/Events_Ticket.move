@@ -7,6 +7,8 @@ module Events_Ticket::Events_Ticket {
     use sui::transfer;
     use sui::tx_context::{Self, TxContext};
 
+    use std::string::{String};
+
     const ErrorEventOver: u64 = 0;
     const ErrorEventNotOver: u64 = 1;
     const ErrorPaymentNotEnough: u64 = 2;
@@ -15,8 +17,8 @@ module Events_Ticket::Events_Ticket {
 
     struct Event has key, store {
         id: UID,
-        name: vector<u8>,
-        desc: vector<u8>,
+        name: String,
+        desc: String,
         wallet_balance: Balance<SUI>,
         start_time: u64,
         end_time: u64,
@@ -37,7 +39,7 @@ module Events_Ticket::Events_Ticket {
         buyer: address,
     }
 
-    public fun create_event(name: vector<u8>, desc: vector<u8>, start_time: u64, end_time: u64,  ctx: &mut TxContext): Event {
+    public fun create_event(name: String, desc: String, start_time: u64, end_time: u64,  ctx: &mut TxContext): Event {
         let event = Event {
             id: object::new(ctx),
             name,
@@ -114,7 +116,7 @@ module Events_Ticket::Events_Ticket {
     }
 
     // Get Event details
-    public fun get_event(event: &Event) : (&vector<u8>, &vector<u8>, &u64, &u64) {
+    public fun get_event(event: &Event) : (&String, &String, &u64, &u64) {
         let Event {id, name, desc, wallet_balance, start_time, end_time} = event;
         let _id = id;
         let _wallet_balance = wallet_balance;
@@ -165,6 +167,4 @@ module Events_Ticket::Events_Ticket {
         // delete invoice
         object::delete(id);
     }   
-    
-
 }

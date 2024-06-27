@@ -26,8 +26,8 @@ This project is a blockchain-based event ticketing system built on the SUI platf
 ### Event
 
 - `id: UID`
-- `name: vector<u8>`
-- `desc: vector<u8>`
+- `name: String`
+- `desc: String`
 - `wallet_balance: Balance<SUI>`
 - `start_time: u64`
 - `end_time: u64`
@@ -54,7 +54,7 @@ This project is a blockchain-based event ticketing system built on the SUI platf
 Creates a new event.
 
 ```move
-public fun create_event(name: vector<u8>, desc: vector<u8>, start_time: u64, end_time: u64, ctx: &mut TxContext): Event
+public fun create_event(name: String, desc: String, start_time: u64, end_time: u64, ctx: &mut TxContext): Event
 ```
 ### Create Ticket
 
@@ -70,7 +70,7 @@ Allows a user to purchase a ticket for an event.
 
 ```move
 
-public fun buy_ticket(ticket: &mut Ticket, event: &mut Event, ctx: &mut TxContext, clock: &Clock, buyer_coin_payment: Coin<SUI>)
+public fun buy_ticket(ticket: &mut Ticket, event: &mut Event, ctx: &mut TxContext, clock: &Clock, coin: Coin<SUI>)
 ```
 ### Get Invoice Details
 
@@ -95,7 +95,7 @@ public fun get_invoice_with_buyer(invoice: &Invoice, buyer: address): (&ID, &ID,
 Retrieves details of a specific event.
 
 ```move
-public fun get_event(event: &Event): (&vector<u8>, &vector<u8>, &u64, &u64)
+public fun get_event(event: &Event): (&String, &String, &u64, &u64)
 ```
 ### Retrieve Funds
 
